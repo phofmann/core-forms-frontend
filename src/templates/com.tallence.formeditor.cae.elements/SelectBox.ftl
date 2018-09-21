@@ -4,38 +4,25 @@
 <#assign validator = self.validator />
 <#assign isMandatory = self.mandatory />
 
-<div class="form__group">
-    <div class="select clearfix">
-        <div class="row">
-
-            <div class="col-10">
-                <label for="${self.id}">${self.name!""}${isMandatory?then(' *','')}</label>
-            </div>
-            <div class="col-2">
-            <@cm.include self=self view="fieldtip"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" :class="{'is-invalid': errors.has('${self.technicalName}') }">
-
-                <select class="select form-control"
-                        :class="{'is-invalid': errors.has('${self.technicalName}') }"
-                        name="${self.technicalName}"
-                        id="${self.id}"
-                        <#if isMandatory>v-validate="'required'"</#if>>
-                    <option value=""><@bp.message "cae-form-select-default"/></option>
+<div class="form-group">
+  <div class="select clearfix">
+    <div class="row">
+      <label for="${self.id}"<#if self.mandatory> class="mandatory"</#if>>${self.name!""}</label>
+    </div>
+    <div class="row">
+      <div class="col">
+        <select class="select form-control"
+                name="${self.technicalName}"
+                id="${self.id}">
+          <option value=""><@bp.message "cae-form-select-default"/></option>
                 <#list self.options![] as option>
-                    <option
-                        value="${option.value}"
+                    <option value="${option.value}"
                         <#if option.selectedByDefault>selected="selected"</#if>>
-                        ${option.value}
+                      ${option.value}
                     </option>
                 </#list>
-                </select>
-                <small class="error text-danger" v-if="errors.has('${self.technicalName}')">
-                    Bitte eine Option wählen.
-                </small>
-            </div>
-        </div>
+        </select>
+      </div>
     </div>
+  </div>
 </div>

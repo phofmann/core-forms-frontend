@@ -1,0 +1,45 @@
+@function isValidSvg($circle-background-color: "#41d873") {
+  @return url("../../img/valid.param.svg?circleBackgroundColor=#{encodeColor($circle-background-color)}");
+}
+
+.cm-form--custom {
+  .mandatory:after {
+    content: '*';
+  }
+
+  div {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding-left: $form-text-padding-left;
+      background: $form-input-background-color;
+
+      &:valid {
+        background: isValidSvg() no-repeat 13px 13px;
+        background-size: 20px;
+      }
+
+      &:invalid:not(:focus):not(:placeholder-shown) {
+        background: $form-input-warning-color;
+      }
+
+      &:invalid:focus:not(:placeholder-shown) {
+        & ~ .hint {
+          color: $form-hint-warning-color;
+        }
+      }
+      &:focus {
+        & ~ .hint {
+          display: block;
+        }
+      }
+    }
+
+    .hint {
+      padding: 10px 0;
+      color: $form-hint-color;
+      display: none;
+    }
+
+  }
+}
